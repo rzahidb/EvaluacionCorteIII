@@ -1,0 +1,40 @@
+Verificacion: 12 de noviembre de 2026
+Entorno: Linux x86_64, Temurin JDK 21.0.13, PostgreSQL 14.15 temporal, JavaFX 21.0.6 (Monocle).
+Comando reproducible: mvnw.cmd -Pintegracion verify
+Resultado: BUILD SUCCESS
+
+org.example.proyectohibernate.controller.LaboratorioIntegracionTest
+Pruebas: 11; fallos: 0; errores: 0; omitidas: 0
+  OK - esquemaInicialYFXML
+  OK - p1RegistrarEquipoValido
+  OK - p2CodigoDuplicadoYRecuperacion
+  OK - p3SeleccionYActualizacion
+  OK - p4EliminarConConfirmacionReal
+  OK - p5BusquedaParcial
+  OK - p6FiltrosCombinados
+  OK - p7CantidadNegativaYNoNumerica
+  OK - p8ReabrirPersistenciaYVista
+  OK - rollbackSinCambiosParciales
+  OK - restriccionesPostgresYPoliticaDeTipos
+
+org.example.proyectohibernate.model.ValidacionEquipoTest
+Pruebas: 13; fallos: 0; errores: 0; omitidas: 0
+  OK - rechazaLongitudesExcesivas
+  OK - aceptaEquipoValidoSinMarca
+  OK - rechazaEstadoNoPermitido
+  OK - aceptaLimitesDeCantidad
+  OK - rechazaCamposObligatorios
+  OK - rechazaCantidadesInvalidas(String)[1]
+  OK - rechazaCantidadesInvalidas(String)[2]
+  OK - rechazaCantidadesInvalidas(String)[3]
+  OK - rechazaCantidadesInvalidas(String)[4]
+  OK - rechazaCantidadesInvalidas(String)[5]
+  OK - rechazaCantidadesInvalidas(String)[6]
+  OK - rechazaCantidadesInvalidas(String)[7]
+  OK - rechazaTipoAusente
+
+TOTAL: 24 pruebas aprobadas.
+P8 inicia un proceso Java separado con JPAutil y recupera REI-001 desde PostgreSQL.
+Rollback: UPDATE enviado mediante flush seguido de INSERT duplicado; no persiste ninguno de los cambios.
+Las pruebas de integridad generan errores esperados que son capturados y verificados por las aserciones.
+No se uso la base de datos del estudiante.

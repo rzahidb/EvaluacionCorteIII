@@ -1,0 +1,18 @@
+.root { -fx-font-family: "Segoe UI", "Arial", sans-serif; -fx-font-size: 13px; -fx-background-color: #f3f6fb; -fx-text-fill: #182536; }
+.titulo { -fx-font-size: 27px; -fx-font-weight: bold; -fx-text-fill: #142b48; }
+.subtitulo { -fx-text-fill: #617189; -fx-font-size: 12px; }
+.seccion { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #203955; }
+.tarjeta { -fx-background-color: white; -fx-background-radius: 12; -fx-padding: 18; -fx-border-color: #dce4ef; -fx-border-radius: 12; }
+.text-field, .combo-box { -fx-background-color: white; -fx-border-color: #cbd5e2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-pref-height: 34; }
+.text-field:focused, .combo-box:focused { -fx-border-color: #3777c5; }
+.button { -fx-background-color: #e4ebf4; -fx-text-fill: #203955; -fx-background-radius: 6; -fx-padding: 9 16; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #d3dfef; }
+.button.primario { -fx-background-color: #2463a8; -fx-text-fill: white; }
+.button.primario:hover { -fx-background-color: #194f8b; }
+.button.peligro { -fx-background-color: #f9e2e5; -fx-text-fill: #a0283b; }
+.table-view { -fx-background-color: white; -fx-border-color: #dce4ef; -fx-border-radius: 7; -fx-background-radius: 7; }
+.table-view .column-header, .table-view .filler { -fx-background-color: #e6edf6; -fx-pref-height: 36; }
+.table-view .column-header .label { -fx-alignment: CENTER_LEFT; -fx-padding: 0 8; -fx-text-fill: #29415c; }
+.table-row-cell { -fx-cell-size: 36; }
+.table-row-cell:odd { -fx-background-color: #f6f8fc; }
+.table-row-cell:selected { -fx-background-color: #d9e9fd; -fx-text-background-color: #142b48; }
