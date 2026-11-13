@@ -1,11 +1,10 @@
 package org.example.proyectohibernate.controller;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.proyectohibernate.dao.EquipoDAO;
 import org.example.proyectohibernate.dao.TipoEquipoDAO;
 import org.example.proyectohibernate.model.Equipo;
@@ -23,32 +22,22 @@ public class EquipoController {
     @FXML private Button btnGuardar, btnActualizar, btnEliminar;
     @FXML private Label lblSeleccion, lblTotal;
 
-    private final EquipoDAO equipoDAO;
-    private final TipoEquipoDAO tipoDAO;
+    private final EquipoDAO equipoDAO = new EquipoDAO();
+    private final TipoEquipoDAO tipoDAO = new TipoEquipoDAO();
     private Integer idSeleccionado;
-
-    public EquipoController() { this(new EquipoDAO(), new TipoEquipoDAO()); }
-    public EquipoController(EquipoDAO equipoDAO, TipoEquipoDAO tipoDAO) {
-        this.equipoDAO = equipoDAO;
-        this.tipoDAO = tipoDAO;
-    }
 
     @FXML
     private void initialize() {
-        colId.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getIdEquipo()));
-        colCodigo.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getCodigo()));
-        colNombre.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getNombre()));
-        colMarca.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getMarca()));
-        colEstado.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getEstado()));
-        colCantidad.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getCantidad()));
+        colId.setCellValueFactory(new PropertyValueFactory<>("idEquipo"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         // JOIN FETCH en el DAO permite leer el nombre tras cerrar el EntityManager.
         colTipo.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getTipoEquipo().getNombre()));
         tablaEquipos.setPlaceholder(new Label("No hay equipos para los filtros seleccionados."));
         comboEstado.setItems(FXCollections.observableArrayList(Equipo.ESTADOS));
-        comboTipo.setConverter(conversorTipo(""));
-        comboFiltroTipo.setConverter(conversorTipo("Todos los tipos"));
-        configurarCeldas(comboTipo, "Seleccione un tipo");
-        configurarCeldas(comboFiltroTipo, "Todos los tipos");
         tablaEquipos.getSelectionModel().selectedItemProperty().addListener((obs, anterior, actual) -> {
             if (actual == null) {
                 idSeleccionado = null;
@@ -56,27 +45,6 @@ public class EquipoController {
             } else seleccionarEquipo(actual);
         });
         limpiarCampos();
-    }
-
-    private StringConverter<TipoEquipo> conversorTipo(String nulo) {
-        return new StringConverter<>() {
-            @Override public String toString(TipoEquipo tipo) { return tipo == null ? nulo : tipo.getNombre(); }
-            @Override public TipoEquipo fromString(String texto) { return null; }
-        };
-    }
-
-    private void configurarCeldas(ComboBox<TipoEquipo> combo, String vacio) {
-        combo.setCellFactory(lista -> celdaTipo(vacio));
-        combo.setButtonCell(celdaTipo(vacio));
-    }
-
-    private ListCell<TipoEquipo> celdaTipo(String vacio) {
-        return new ListCell<>() {
-            @Override protected void updateItem(TipoEquipo tipo, boolean empty) {
-                super.updateItem(tipo, empty);
-                setText(empty ? null : tipo == null ? vacio : tipo.getNombre());
-            }
-        };
     }
 
     /** Tambien sirve para reintentar despues de corregir la conexion local. */
@@ -89,8 +57,10 @@ public class EquipoController {
             comboTipo.setItems(FXCollections.observableArrayList(tipos));
             comboTipo.setValue(encontrarTipo(tipos, idTipo));
             comboFiltroTipo.setItems(FXCollections.observableArrayList(tipos));
-            comboFiltroTipo.getItems().addFirst(null);
-            comboFiltroTipo.setValue(encontrarTipo(tipos, idFiltro));
+            TipoEquipo todos = new TipoEquipo();
+            todos.setNombre("Todos los tipos");
+            comboFiltroTipo.getItems().add(0, todos);
+            comboFiltroTipo.setValue(idFiltro == null ? todos : encontrarTipo(tipos, idFiltro));
             refrescarTabla();
         } catch (RuntimeException ex) { fallo("No se pudieron cargar los datos", ex); }
     }

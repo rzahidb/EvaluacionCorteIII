@@ -12,7 +12,6 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("equipos-view.fxml"));
         Scene scene = new Scene(loader.load(), 1120, 740);
-        scene.getStylesheets().add(HelloApplication.class.getResource("estilos.css").toExternalForm());
         stage.setTitle("Laboratorio ORM | Control de equipos");
         stage.setMinWidth(960);
         stage.setMinHeight(680);

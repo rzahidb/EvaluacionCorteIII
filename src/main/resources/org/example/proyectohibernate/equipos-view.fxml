@@ -8,13 +8,13 @@
     <padding><Insets top="24" right="28" bottom="20" left="28"/></padding>
     <HBox alignment="CENTER_LEFT" spacing="20">
         <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label text="Control de equipos" styleClass="titulo"/>
-            <Label text="Inventario del laboratorio · JavaFX + Hibernate + PostgreSQL" styleClass="subtitulo"/>
+            <Label text="Control de equipos"/>
+            <Label text="Inventario del laboratorio · JavaFX + Hibernate + PostgreSQL"/>
         </VBox>
         <Button fx:id="btnRecargar" text="Recargar datos" onAction="#cargarDatos"/>
     </HBox>
-    <VBox spacing="12" styleClass="tarjeta">
-        <Label fx:id="lblSeleccion" text="Nuevo equipo" styleClass="seccion"/>
+    <VBox spacing="12">
+        <Label fx:id="lblSeleccion" text="Nuevo equipo"/>
         <GridPane hgap="16" vgap="8">
             <columnConstraints>
                 <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
@@ -35,9 +35,9 @@
             <ComboBox fx:id="comboEstado" promptText="Seleccione un estado" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
         </GridPane>
         <HBox spacing="10">
-            <Button fx:id="btnGuardar" text="Guardar" onAction="#guardarEquipo" styleClass="primario" defaultButton="true"/>
+            <Button fx:id="btnGuardar" text="Guardar" onAction="#guardarEquipo" defaultButton="true"/>
             <Button fx:id="btnActualizar" text="Actualizar" onAction="#actualizarEquipo"/>
-            <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarEquipo" styleClass="peligro"/>
+            <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarEquipo"/>
             <Button fx:id="btnLimpiar" text="Limpiar" onAction="#limpiarCampos"/>
         </HBox>
     </VBox>
@@ -65,8 +65,8 @@
         </columns>
     </TableView>
     <HBox alignment="CENTER_LEFT">
-        <Label fx:id="lblTotal" text="Inventario sin cargar" styleClass="subtitulo" HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblTotal" text="Inventario sin cargar" HBox.hgrow="ALWAYS"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Label text="Seleccione una fila para editar · * Campos obligatorios" styleClass="subtitulo"/>
+        <Label text="Seleccione una fila para editar · * Campos obligatorios"/>
     </HBox>
 </VBox>
